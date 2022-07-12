@@ -27,9 +27,11 @@ SECRET_KEY = config('SECRET_KEY', default='change-this-django-insecure-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
+print(DEBUG)
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+print(ALLOWED_HOSTS)
 
 
 # Application definition
@@ -127,6 +129,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static',  ] # This should be a list
 STATIC_ROOT = BASE_DIR / 'staticfiles' # This is for production (collectstatic command has to be run)
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
