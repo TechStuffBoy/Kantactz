@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
@@ -39,10 +40,10 @@ class ContactCreate(CreateView):
     action = 'Add'
 
     def get_success_url(self):
-        messages.success(self.request,'Contact Created!')
         return reverse('contact-list')
     
     def form_valid(self, form):
+        messages.success(self.request,'Contact Created!')
         form = form.save(commit=False)
         form.creator = self.request.user # Update the user here
         return super().form_valid(form)
@@ -53,17 +54,31 @@ class ContactUpdate(UpdateView):
     action = 'Edit'
 
     def get_success_url(self):
-        messages.success(self.request,'Details Updated!')
         return reverse(
             "contact-detail",
             kwargs={'pk':self.kwargs['pk']}
         )
+    
+    def return_to_list_view(self):
+        return reverse('contact-list')
+    
+    def form_valid(self, form):
+        messages.success(self.request, f"Contact Updated!")
+        return super().form_valid(form)
 
 
 class ContactDelete(DeleteView):
     model = Contact
+    success_message = "Contact deleted successfully!"
 
     def get_success_url(self):
-        messages.success(self.request,'Contact Deleted Successfully!')
         return reverse('contact-list')
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super().delete(request, *args, **kwargs)
+    
+    
+
+
 
