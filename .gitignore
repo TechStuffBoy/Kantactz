@@ -1,5 +1,6 @@
 # Custom file
 Assumptions.txt
+yet_to_do.txt
 
 # Env file
 .env
@@ -90,6 +91,8 @@ ipython_config.py
 
 # Static dirs
 staticfiles
+
+
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
