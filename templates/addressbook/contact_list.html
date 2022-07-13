@@ -4,7 +4,21 @@
 {% block content %}
     <h1>Contact List</h1>
     <hr>
-
+    <div>
+        <span class="pull-left">
+            <!-- Have a +Add buton -->
+            <a class='btn btn-primary' href="{% url 'contact-add' %}">+ Add</a>
+            <!-- Have a Upload file button -->
+        </span>
+        <span class="pull-right">
+            <form action="" method="get" class="form-inline">
+                <input type="text" name="q" placeholder="Enter Keyword" value="{{ request.GET.q }}" class="form-control">
+                <input type="submit" value="Search" class="btn btn-primary">
+            </form>
+        </span>
+    </div> 
+    <br>   
+    <br>
     <table class="table">
         <thead>
             <tr>
@@ -15,13 +29,16 @@
                 <th scope="col">Business Email</th>
                 <th scope="col">Created_at</th>
                 <th scope="col">Updated_at</th>
-                <th scope="col">Edit</th>
+                {% if contact.creator == request.user %}
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for contact in contacts %}
                 <tr>
-                    <th scope="row"><a class='btn' href="#">{{ contact.id }}</a></th>
+                    <th scope="row"><a class='btn' href="{% url 'contact-detail' contact.id %}">{{ contact.id }}</a></th>
                     <td>{{ contact.name }}</td>
                     <td>+{{ contact.country_code }}-{{ contact.number }}</td>
                     <td>{{ contact.email }}</td>
@@ -32,7 +49,10 @@
                     {% endif %}
                     <td>{{ contact.created_at }}</td>
                     <td>{{ contact.updated_at }}</td>
-                    <td><a class='btn btn-primary' href="#">Edit</a></td>
+                    {% if contact.creator == request.user %}
+                        <td><a class='btn btn-primary' href="{% url 'contact-edit' contact.id %}">Edit</a></td>
+                        <td><a class='btn btn-danger' href="{% url 'contact-delete' contact.id %}">Delete</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+{% block title %} Contact Detail {% endblock title %}
+
+{% block content %}
+<h1>Contact Detail</h1>
+    <div>
+        {% if contact.creator == request.user %}
+            <span class="float-right"> <a href="{% url 'contact-edit' contact.id %}" class="badge badge-danger">Edit</a></span>
+        {% endif %}
+    </div>
+    <hr>
+    <table class="table table-hover table-striped" style="width: 50%; border: 1px solid gray;">
+        <tr>
+            <th style="width:15%; background-color: bisque;">Name</th>
+            <td sty>{{ contact.name }}</td>
+        </tr>
+        <tr>
+            <th style="width:15%; background-color: bisque;">Number</th>
+            <td>+{{ contact.country_code }}-{{ contact.number }}</td>
+        </tr>
+        <tr>
+            <th style="width:15%; background-color: bisque;">Email</th>
+            <td>{{ contact.email }}</td>
+        </tr>
+        <tr>
+            <th style="width:15%; background-color: bisque;">Business Email</th>
+            {% if contact.email2 %}
+                <td>{{ contact.email2 }}</td>
+            {% else %}
+                <td>Not available.</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <th style="width:15%; background-color: bisque;">Updated at</th>
+            <td>{{ contact.updated_at }}</td>
+        </tr>
+        
+    </table>
+{% endblock %}

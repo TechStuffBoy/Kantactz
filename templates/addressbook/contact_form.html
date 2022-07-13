@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% block title %} {{ view.action }} Contact {% endblock %}
+
+<style>
+    table {
+        padding: 5px;
+    }
+</style>
+
+{% block content %}
+
+    <h1>{{ view.action }} Contact</h1>
+    <hr>
+
+    <form action="" method="post"> {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-primary">{{ view.action }}</button>
+    </form>
+
+{% endblock content %}
