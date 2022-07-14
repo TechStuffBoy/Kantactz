@@ -13,14 +13,14 @@
             <!-- Form which handles the csv file upload -->
             <form action="{% url 'upload-csv' %}" method="post" enctype="multipart/form-data" class="form-inline"> {% csrf_token %}
                 <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
-                <input type="submit" value="Upload" class="btn btn-secondary">
+                <input type="submit" value="Upload" class="btn btn-info">
             </form>
         </span>
         <span class="pull-right">
             <!-- Form for search functionality -->
             <form action="" method="get" class="form-inline">
                 <input type="text" name="q" placeholder="Enter Keyword" value="{{ request.GET.q }}" class="form-control">
-                <input type="submit" value="Search" class="btn btn-primary">
+                <input type="submit" value="Search" class="btn btn-info">
             </form>
         </span>
     </div> 
@@ -69,8 +69,8 @@
     <div class="pagination">
         <span class="step-links">
             {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary">previous</a>
+                <a href="?page=1" class="btn btn-info">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-info">previous</a>
             {% endif %}
     
             <span class="current">
@@ -78,8 +78,8 @@
             </span>
     
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-primary">last &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-info">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-info">last &raquo;</a>
             {% endif %}
         </span>
     </div>

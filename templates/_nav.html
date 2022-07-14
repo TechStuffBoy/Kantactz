@@ -13,7 +13,7 @@
           Hi {{ user.username }}!
           <p><a class="btn btn-danger" href="{% url 'logout' %}">Log Out</a></p>
         {% else %}
-          <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+          <a href="{% url 'login' %}" class="btn btn-info">Log In</a>
         {% endif %}
       </ul>
     </div>
