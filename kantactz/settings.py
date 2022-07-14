@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # local apps
     'addressbook.apps.AddressbookConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

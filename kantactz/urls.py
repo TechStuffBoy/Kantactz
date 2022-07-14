@@ -24,6 +24,9 @@ urlpatterns = [
     path('addressbook/', include('addressbook.urls')),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), # Quick way, not recommended
 
+    # Our accounts app
+    path("accounts/", include("accounts.urls")),
+    
     # Auth views
     path("accounts/", include("django.contrib.auth.urls")),
 ]
