@@ -8,4 +8,6 @@
         {{ form.as_p }}
         <button  class="btn btn-primary" type="submit">Log In</button>
     </form>
+    <br>
+    <p>Not a member? <a href="{% url 'sign-up' %}" class="btn btn-warning">Sign Up</a></p>
 {% endblock content %}
