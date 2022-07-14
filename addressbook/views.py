@@ -1,3 +1,6 @@
+from itertools import islice
+from django.db import IntegrityError
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -16,7 +19,7 @@ class HomeView(TemplateView):
 class ContactList(LoginRequiredMixin,  ListView):
     model = Contact
     context_object_name = 'contacts'
-    paginate_by = 2
+    paginate_by = 3
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -46,6 +49,9 @@ class ContactCreate(LoginRequiredMixin, CreateView):
     action = 'Add'
 
     def get_success_url(self):
+        return reverse('contact-list')
+    
+    def return_to_list_view(self):
         return reverse('contact-list')
     
     def form_valid(self, form):
@@ -94,6 +100,37 @@ class ContactDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return obj.creator == self.request.user
     
     
+# Upload CSV file view
+def upload_csv(request):
+    if request.method == 'POST':
+        csv_file = request.FILES["csv_file"] # gives file_name.csv
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request,'File is not CSV type')
+            return HttpResponseRedirect(reverse("contact-list"))
 
+        # Read the contents from csv file
+        file_data = csv_file.read().decode("utf-8")
+        lines = file_data.split("\n")
+        lines = (line.strip() for line in lines)
+        lines = islice(lines, 1, None) # Skip the headers
+
+        # Now create or update the data
+        for line in lines:
+            fields = line.split(',')
+            try:
+                _, created = Contact.objects.update_or_create(
+                    name = fields[0],
+                    number = fields[1],
+                    country_code = fields[2],
+                    email = fields[3],
+                    email2 = fields[4],
+                    creator = request.user
+                )
+            except IntegrityError as e:
+                messages.warning(request, f"{line} already there.. Please correct and try again!")
+
+        messages.success(request, 'Successfully created/updated all the entries')
+        return HttpResponseRedirect(reverse("contact-list"))
+       
 
 

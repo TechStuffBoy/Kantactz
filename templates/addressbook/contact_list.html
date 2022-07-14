@@ -5,12 +5,19 @@
     <h1>Contact List</h1>
     <hr>
     <div>
-        <span class="pull-left">
+        <span class="pull-left" style="margin-right: 10px;">
             <!-- Have a +Add buton -->
             <a class='btn btn-primary' href="{% url 'contact-add' %}">+ Add</a>
-            <!-- Have a Upload file button -->
+        </span>
+        <span>
+            <!-- Form which handles the csv file upload -->
+            <form action="{% url 'upload-csv' %}" method="post" enctype="multipart/form-data" class="form-inline"> {% csrf_token %}
+                <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+                <input type="submit" value="Upload" class="btn btn-secondary">
+            </form>
         </span>
         <span class="pull-right">
+            <!-- Form for search functionality -->
             <form action="" method="get" class="form-inline">
                 <input type="text" name="q" placeholder="Enter Keyword" value="{{ request.GET.q }}" class="form-control">
                 <input type="submit" value="Search" class="btn btn-primary">
@@ -63,7 +70,7 @@
         <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary">previous</a>
             {% endif %}
     
             <span class="current">
@@ -71,8 +78,8 @@
             </span>
     
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-primary">last &raquo;</a>
             {% endif %}
         </span>
     </div>
