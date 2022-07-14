@@ -23,4 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('addressbook/', include('addressbook.urls')),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), # Quick way, not recommended
+
+    # Auth views
+    path("accounts/", include("django.contrib.auth.urls")),
 ]

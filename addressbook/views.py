@@ -4,6 +4,8 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from django.db.models import Q
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 from .models import Contact
@@ -12,7 +14,7 @@ from .models import Contact
 class HomeView(TemplateView):
     template_name = 'addressbook/home.html'
 
-class ContactList(ListView):
+class ContactList(LoginRequiredMixin, ListView):
     model = Contact
     context_object_name = 'contacts'
     paginate_by = 2
@@ -29,12 +31,12 @@ class ContactList(ListView):
         else:
             return super().get_queryset().filter(creator=self.request.user)
 
-class ContactDetail(DetailView):
+class ContactDetail(LoginRequiredMixin, DetailView):
     model = Contact
     context_object_name = 'contact'
 
 
-class ContactCreate(CreateView):
+class ContactCreate(LoginRequiredMixin, CreateView):
     model = Contact
     fields = ['name' , 'number', 'country_code', 'email', 'email2']
     action = 'Add'
@@ -48,7 +50,7 @@ class ContactCreate(CreateView):
         form.creator = self.request.user # Update the user here
         return super().form_valid(form)
 
-class ContactUpdate(UpdateView):
+class ContactUpdate(LoginRequiredMixin, UpdateView):
     model = Contact
     fields = ['name' , 'number', 'country_code', 'email', 'email2']
     action = 'Edit'
@@ -67,7 +69,7 @@ class ContactUpdate(UpdateView):
         return super().form_valid(form)
 
 
-class ContactDelete(DeleteView):
+class ContactDelete(LoginRequiredMixin, DeleteView):
     model = Contact
     success_message = "Contact deleted successfully!"
 
