@@ -146,3 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Authentication Settings
 LOGIN_REDIRECT_URL = 'contact-list'
 LOGOUT_REDIRECT_URL = 'home'
+
+# Email settings
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend" # Store it in a file
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
