@@ -4,17 +4,16 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from django.db.models import Q
 from django.urls import reverse
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .models import Contact
+
 
 # Create your views here.
 class HomeView(TemplateView):
     template_name = 'addressbook/home.html'
 
-class ContactList(LoginRequiredMixin, ListView):
+class ContactList(LoginRequiredMixin,  ListView):
     model = Contact
     context_object_name = 'contacts'
     paginate_by = 2
@@ -31,9 +30,14 @@ class ContactList(LoginRequiredMixin, ListView):
         else:
             return super().get_queryset().filter(creator=self.request.user)
 
-class ContactDetail(LoginRequiredMixin, DetailView):
+
+class ContactDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Contact
     context_object_name = 'contact'
+
+    def test_func(self):
+        obj = self.get_object(id=self.kwargs['pk'])
+        return obj.creator == self.request.user
 
 
 class ContactCreate(LoginRequiredMixin, CreateView):
@@ -49,8 +53,9 @@ class ContactCreate(LoginRequiredMixin, CreateView):
         form = form.save(commit=False)
         form.creator = self.request.user # Update the user here
         return super().form_valid(form)
+    
 
-class ContactUpdate(LoginRequiredMixin, UpdateView):
+class ContactUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Contact
     fields = ['name' , 'number', 'country_code', 'email', 'email2']
     action = 'Edit'
@@ -67,9 +72,13 @@ class ContactUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         messages.success(self.request, f"Contact Updated!")
         return super().form_valid(form)
+    
+    def test_func(self):
+        obj = self.get_object()
+        return obj.creator == self.request.user
 
 
-class ContactDelete(LoginRequiredMixin, DeleteView):
+class ContactDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Contact
     success_message = "Contact deleted successfully!"
 
@@ -79,6 +88,10 @@ class ContactDelete(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
+    
+    def test_func(self):
+        obj = self.get_object()
+        return obj.creator == self.request.user
     
     
 

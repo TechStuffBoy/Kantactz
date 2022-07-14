@@ -1,0 +1,13 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %} 403 Forbidden {% endblock title %}
+
+{% block content %}
+    <h1>403 Forbidden</h1>
+    <hr>
+    <p>Sorry, You do not have permission to view the page.</p>
+    <div class="image-center">
+        <img src="{% static 'images/403.png' %}" width="500" height="500" alt="403 Image">
+    </div>
+    
+{% endblock %}
