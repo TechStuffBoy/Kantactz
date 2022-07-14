@@ -143,5 +143,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Authentication Settings
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'contact-list'
 LOGOUT_REDIRECT_URL = 'home'

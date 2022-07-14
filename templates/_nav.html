@@ -8,7 +8,7 @@
         <li class="active"><a href="{% url 'contact-list' %}">AddressBook</a></li>
         <li><a href="#">Contact Us</a></li>
       </ul>
-      <ul class="'pull-right">
+      <ul class="pull-right">
         {% if user.is_authenticated %}
           Hi {{ user.username }}!
           <p><a class="btn btn-danger" href="{% url 'logout' %}">Log Out</a></p>
