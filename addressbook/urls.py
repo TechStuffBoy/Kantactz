@@ -9,5 +9,4 @@ urlpatterns = [
     path('<int:pk>/edit/', view=views.ContactUpdate.as_view(), name='contact-edit'),
     path('<int:pk>/delete/', view=views.ContactDelete.as_view(), name='contact-delete'),
     path('upload-csv/', view=views.upload_csv, name='upload-csv'),
-    
 ]

@@ -6,9 +6,10 @@ from ..models import Contact
 User = get_user_model()
 
 class ContactSerializer(serializers.ModelSerializer):
-    
-    creator = serializers.SlugRelatedField(queryset=User.objects.all(),
-		slug_field='username')
+
+    # If we uncomment the below one, then we will get the username as 'creator', but it will eagerly query the database
+    # creator = serializers.SlugRelatedField(queryset=User.objects.all(),
+	# 	slug_field='username')
     
     class Meta:
         model = Contact
