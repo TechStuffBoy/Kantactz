@@ -7,6 +7,7 @@ class Contact(models.Model):
     class Meta:
         verbose_name_plural = 'Contacts'
         ordering = ('-updated_at', )
+        
     name = models.CharField('Name', max_length=255, default='Admin', blank=False)
     number = models.CharField('Number', max_length=10)
     country_code = models.CharField('Country Code', max_length=4)

@@ -26,7 +26,10 @@ urlpatterns = [
 
     # Our accounts app
     path("accounts/", include("accounts.urls")),
-    
+
     # Auth views
     path("accounts/", include("django.contrib.auth.urls")),
+
+    # API routes
+    path('api/v1/', include('addressbook.api.urls')),
 ]
