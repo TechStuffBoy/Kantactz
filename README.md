@@ -96,15 +96,18 @@ http://127.0.0.1:8000/addressbook/
 You will be re-directed to login page. Create an account for yourself and login with that account.
 ```
 
-## Screenshots
+## Screenshots of web-app
 ### List Page
 ![ListPage](https://user-images.githubusercontent.com/17155643/179344013-f29c2b9e-2a34-4e6b-be79-e647577cee11.png)
 
 ### Edit Form
 ![Edit Form](https://user-images.githubusercontent.com/17155643/179344179-fab1e44e-fc2f-47f1-8276-d6801f25e0ef.png)
 
+### Login, Sign-Up and Reset Password
+![Login_Signup_Reset_Pawword](https://user-images.githubusercontent.com/17155643/179344300-1e66db92-1784-4cfd-bb25-cba2c62232e1.png)
 
 
+## RestFul API
 
 
 
