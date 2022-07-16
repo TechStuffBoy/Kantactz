@@ -41,7 +41,7 @@ $ pip install -r requirements.txt
 All secrets should be provided in a .env file. like, SECRET_KEy, DEBUG , DB Related values. A .env.sample file has been provided, please make use of it.
 ```
 $ cp .env.sample .env
-Make sure to give different SECRET_KEY and Make DEBUG=True, so that custom error pages will be shown as per the status code.
+Make sure to give different SECRET_KEY and Make DEBUG=False, so that custom error pages will be shown as per the status code.
 ```
 ## Database settings
 I am using the Sqlite Database here. If this project is deployed to AWS or Heroku, then we might have to use the Postgres or any similar database. You have to install pysopg2-binary (Postgres) from https://pypi.org/project/psycopg2-binary/
@@ -95,6 +95,14 @@ http://127.0.0.1:8000/addressbook/
 
 You will be re-directed to login page. Create an account for yourself and login with that account.
 ```
+
+## Note
+```
+1. Make sure to set DEBUG=False in .env file to see any error pages.
+2. Collectstatic command, to serve all the static assets (when DEBUG=False)
+$ python manage.py collectstatic
+```
+
 
 ## Screenshots of web-app
 ### List Page
