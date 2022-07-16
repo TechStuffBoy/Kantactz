@@ -153,3 +153,12 @@ LOGOUT_REDIRECT_URL = 'home'
 # Email settings
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend" # Store it in a file
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+# Rest Framework Settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}

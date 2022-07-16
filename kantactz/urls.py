@@ -32,4 +32,5 @@ urlpatterns = [
 
     # API routes
     path('api/v1/contacts/', include('addressbook.api.urls')),
+    path('api-auth/', include('rest_framework.urls')), # Gives the login link for BrowsableAPI
 ]
