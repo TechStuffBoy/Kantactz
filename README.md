@@ -108,6 +108,39 @@ You will be re-directed to login page. Create an account for yourself and login 
 
 
 ## RestFul API
+```
+1. API has been created only for Contacts or Addressbook.
+2. Before accessing, username and password should be given (Only Basic Authentication being used)
+```
+
+### Endpoints
+
+#### List all the contacts [GET]
+```
+$ curl --user "your_username":"password" -iX GET localhost:8000/api/v1/contacts/
+```
+
+#### List only one contact [GET]
+```
+$ curl --user "your_username":"password" -iX GET localhost:8000/api/v1/contacts/25/
+```
+
+#### PATCH a particular field for a contact [PATCH]
+```
+$ curl --user "your_username":"password" -iX PATCH -H "Content-Type: application/json" -d '{ "name": "API 1" }' localhost:8000/api/v1/contacts/39/
+```
+
+#### Create a contact [POST]
+```
+$ curl --user "your_username":"password"-iX POST -H "Content-Type: application/json" -d '{ "name": "Api_1", "number": "9878786789", "country_code": "91", "email": "api1@example.com", "email2": "api1@business.com" }' localhost:8000/api/v1/contacts/
+```
+#### Delete a contact [DELETE]
+```
+$ curl --user "your_username":"password" -iX DELETE localhost:8000/api/v1/contacts/43/
+```
+
+
+
 
 
 
