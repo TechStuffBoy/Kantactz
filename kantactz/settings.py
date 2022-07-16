@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # Third party
     'rest_framework',
+    'corsheaders',
 
     # local apps
     'addressbook.apps.AddressbookConfig',
@@ -53,8 +54,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware", # for cors
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -162,3 +165,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+# CORs settings
+CORS_ORIGIN_ALLOW_ALL = True
+
+'''
+(or)
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:8000',
+)
+'''
