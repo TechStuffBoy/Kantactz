@@ -39,7 +39,7 @@ class ContactDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     context_object_name = 'contact'
 
     def test_func(self):
-        obj = self.get_object(id=self.kwargs['pk'])
+        obj = self.get_object()
         return obj.creator == self.request.user
 
 
